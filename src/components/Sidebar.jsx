@@ -1,5 +1,6 @@
 import React from "react";
 import { FaBars } from "react-icons/fa";
+import Card from "./Card";
 
 const Sidebar = () => {
   return (
@@ -17,15 +18,15 @@ const Sidebar = () => {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-          {/* Sidebar content here */}
-          <li>
-            <a>Sidebar Item 1</a>
-          </li>
-          <li>
-            <a>Sidebar Item 2</a>
-          </li>
-        </ul>
+        <div className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+          <input
+            type="text"
+            placeholder="Search Added cities"
+            className="input input-bordered w-full max-w-xs"
+          />
+          <Card/>
+          
+        </div>
       </div>
     </div>
   );
