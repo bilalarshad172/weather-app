@@ -1,25 +1,31 @@
 import React,{ useEffect } from 'react'
-import { getWeatherIcon } from './utils/getWeatherIcons'
+import { getWeatherIcon } from './utils/getWeatherIcons';
+import getWeatherSVG from './utils/getWeatherSVG';
 import useWeatherStore from './Zustand/useWeatherStore'
 
 const Hero = () => {
+  const city = useWeatherStore((state) => state.city);
+  const currentConditions = useWeatherStore((state) => state.currentConditions);
+  console.log(currentConditions, "current")
   
-  const fifteenDaysData  = useWeatherStore((state) => state.fifteenDaysData);
-  console.log(fifteenDaysData, "hello");
+  const fifteenDaysData = useWeatherStore((state) => state.fifteenDaysData);
+  // console.log(fifteenDaysData, "hello");
   
   return (
       <>
       <div className='border mx-20 mt-10 rounded-md'>
-        {fifteenDaysData && fifteenDaysData.length > 0 ? (
-          fifteenDaysData.map((day, index) => (
-            <div key={index} className='day-weather'>
-              {getWeatherIcon(day.conditions)}
-              <p>{day.conditions}</p>
-            </div>
-          ))
-        ) : (
-          <p>Loading weather data...</p>
-        )}
+        <div>{city}</div>
+        <div>{currentConditions.temp}°C</div>
+        <div>{currentConditions.sunrise}sunrise</div>
+        <div>{currentConditions.sunset}sunset</div>
+        <div>{currentConditions.uvindex}UV index</div>
+        <div>{currentConditions.visibility}visibility</div>
+        <div>{currentConditions.humidity}humidity</div>
+        <div>{currentConditions.feelslike}feellike</div>
+        <div>{currentConditions.dew}dew</div>
+        <div>{currentConditions.conditions}conditions</div>
+
+         <img src={getWeatherSVG(currentConditions.conditions)} alt={currentConditions.conditions} />
       </div>
     </>
   )
