@@ -27,8 +27,8 @@ const getWeatherSVG = (condition) => {
     return thunderStorm;
   } else if (/haze/i.test(condition)) {
     return haze;
-  } else if (/wind/i.test(condition)) {
-    return windyNight;
+  } else if (/overcast/i.test(condition)) {
+    return cloudy;
   } else if (/Rain, overcast/i.test(condition)) {
     return rain;
   } else if (/Partially cloudy/i.test(condition)) {

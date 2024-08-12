@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 const API_KEY = "5T8MG2JSSRBWZD6XK8QA3X6N4";
 const useWeatherStore = create((set) => ({
-  city: '',
+  city: 'Islamabad',
   hourlyData: [],
   oneDayData: null,
   sevenDaysData: [],
