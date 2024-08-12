@@ -1,34 +1,48 @@
-import React,{ useEffect } from 'react'
-import { getWeatherIcon } from './utils/getWeatherIcons';
-import getWeatherSVG from './utils/getWeatherSVG';
-import useWeatherStore from './Zustand/useWeatherStore'
+import React, { useEffect } from "react";
+import { getWeatherIcon } from "./utils/getWeatherIcons";
+import getWeatherSVG from "./utils/getWeatherSVG";
+import useWeatherStore from "./Zustand/useWeatherStore";
+import TimeFormat from "./utils/HoursConversion";
 
 const Hero = () => {
   const city = useWeatherStore((state) => state.city);
   const currentConditions = useWeatherStore((state) => state.currentConditions);
-  console.log(currentConditions, "current")
-  
-  const fifteenDaysData = useWeatherStore((state) => state.fifteenDaysData);
-  // console.log(fifteenDaysData, "hello");
-  
-  return (
-      <>
-      <div className='border mx-20 mt-10 rounded-md'>
-        <div>{city}</div>
-        <div>{currentConditions.temp}°C</div>
-        <div>{currentConditions.sunrise}sunrise</div>
-        <div>{currentConditions.sunset}sunset</div>
-        <div>{currentConditions.uvindex}UV index</div>
-        <div>{currentConditions.visibility}visibility</div>
-        <div>{currentConditions.humidity}humidity</div>
-        <div>{currentConditions.feelslike}feellike</div>
-        <div>{currentConditions.dew}dew</div>
-        <div>{currentConditions.conditions}conditions</div>
+  console.log(currentConditions, "current");
 
-         <img src={getWeatherSVG(currentConditions.conditions)} alt={currentConditions.conditions} />
+  const fifteenDaysData = useWeatherStore((state) => state.fifteenDaysData);
+  const resolvedAddress = useWeatherStore((state) => state.resolvedAddress);
+  // console.log(fifteenDaysData, "hello");
+
+  return (
+    <>
+      <div className="border mx-20 mt-10 rounded-md">
+        <div className="flex justify-between">
+          <div className="p-10">
+            <img
+              src={getWeatherSVG(currentConditions.conditions)}
+              alt={currentConditions.conditions}
+            />
+            <h1 className="text-2xl">{currentConditions.conditions}</h1>
+            <h2 className="text-3xl">{currentConditions.temp}°C</h2>
+            <div className="flex gap-2">
+              <p>Sunrise :</p> <TimeFormat time24={currentConditions.sunrise} />
+            </div>
+          </div>
+
+          <div className="p-10 flex flex-col justify-center">
+            <h1 className="text-3xl">{resolvedAddress}.</h1>
+            <div className="flex gap-2 pt-1"><p>Humidity :</p>{currentConditions.humidity}</div>
+            <div className="flex gap-2 pt-1"><p>Feelslike :</p>{currentConditions.feelslike}</div>
+            <div className="flex gap-2 pt-1"><p>Dew :</p>{currentConditions.dew}</div>
+            <div className="flex gap-2 pt-1">
+              <p>Sunset :</p>
+              <TimeFormat time24={currentConditions.sunset} />
+            </div>
+          </div>
+        </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;

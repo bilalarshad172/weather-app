@@ -5,7 +5,7 @@ import { FaSearch } from "react-icons/fa";
 import useWeatherStore from "./Zustand/useWeatherStore";
 
 const NavBar = () => {
-  const [cityInput, setCityInput] = useState("");
+  const [cityInput, setCityInput] = useState("Gujranwala");
   const fetchWeatherData = useWeatherStore((state) => state.fetchWeatherData);
   const resolvedAddress = useWeatherStore((state) => state.resolvedAddress);
   const currentCondition = useWeatherStore((state) => state.currentConditions);
