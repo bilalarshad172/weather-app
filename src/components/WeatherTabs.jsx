@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import WeatherDetails from "./utils/WeatherDetails";
-import { FiClock } from 'react-icons/fi';
+import { FiClock,FiCalendar } from 'react-icons/fi';
 import { WiDaySunny } from 'react-icons/wi';
 import HourlyForecast from "./utils/HourlyForecast";
+import WeeklyForecast from "./utils/WeeklyForecast";
+import FifteenDaysWeather from "./utils/FifteenDaysWeather";
 
 const WeatherTabs = () => {
   const [activeTab, setActiveTab] = useState("tab1");
@@ -41,7 +43,9 @@ const WeatherTabs = () => {
               activeTab === "tab3" ? "bg-blue-500 text-white" : "bg-gray-200"
             } hover:bg-blue-400 transition duration-300`}
           >
-            Tab 3
+            <div className="flex gap-2 justify-center items-center">
+              <FiCalendar className="w-10 h-10" /> <p> 7 days Forcast</p>
+              </div>
           </button>
           <button
             onClick={() => setActiveTab("tab4")}
@@ -49,7 +53,9 @@ const WeatherTabs = () => {
               activeTab === "tab4" ? "bg-blue-500 text-white" : "bg-gray-200"
             } hover:bg-blue-400 transition duration-300`}
           >
-            Tab 4
+           <div className="flex gap-2 justify-center items-center">
+              <FiCalendar className="w-10 h-10" /> <p> 15 days Forcast</p>
+              </div>
           </button>
         </div>
       </div>
@@ -61,8 +67,8 @@ const WeatherTabs = () => {
           </div>
         )}
         {activeTab === "tab2" && <div role="tabpanel"><HourlyForecast/></div>}
-        {activeTab === "tab3" && <div role="tabpanel">Tab content 3</div>}
-        {activeTab === "tab4" && <div role="tabpanel">Tab content 4</div>}
+        {activeTab === "tab3" && <div role="tabpanel"><WeeklyForecast/></div>}
+        {activeTab === "tab4" && <div role="tabpanel"><FifteenDaysWeather/></div>}
       </div>
     </div>
   );

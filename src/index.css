@@ -43,7 +43,6 @@
   margin-bottom: 8px; /* Space between image and text */
 }
 
-
 /* Keyframes for continuous scroll animation */
 @keyframes scroll {
   from {
@@ -53,5 +52,13 @@
     transform: translateX(-50%); /* Moves half the width of the container */
   }
 }
+
+/* Pause the animation on hover */
+.scroll-container:hover .scroll-content {
+  animation-play-state: paused;
+}
+
+
+
 
 

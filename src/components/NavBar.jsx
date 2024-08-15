@@ -19,12 +19,14 @@ const NavBar = () => {
     e.preventDefault();
     if (cityInput) {
       await fetchWeatherData(cityInput);
+      const weatherData = useWeatherStore.getState();
+      console.log(weatherData);
       // Optionally reset input value or handle UI updates here
     }
   };
 
   return (
-    <div className="h-32 border flex justify-between items-center">
+    <div className="h-32  flex justify-between items-center">
       <div className="flex gap-4 w-1/3 items-center">
         <Sidebar />
         <div className="flex gap-3 items-center">

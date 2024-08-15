@@ -6,7 +6,6 @@ import TimeFormat from "./utils/HoursConversion";
 const Hero = () => {
   const city = useWeatherStore((state) => state.city);
   const currentConditions = useWeatherStore((state) => state.currentConditions);
-  const fifteenDaysData = useWeatherStore((state) => state.fifteenDaysData);
   const resolvedAddress = useWeatherStore((state) => state.resolvedAddress);
 
   // Check if currentConditions is available

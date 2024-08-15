@@ -2,16 +2,16 @@ import React from 'react'
 import useWeatherStore from '../Zustand/useWeatherStore';
 import getWeatherSVG from "./getWeatherSVG";
 
-const WeeklyForecast = () => {
-  const sevenDaysData = useWeatherStore((state) => state.sevenDaysData);
+
+const FifteenDaysWeather = () => {
+  const fifteenDaysData = useWeatherStore((state) => state.fifteenDaysData);
   const celsiusToFahrenheit = (celsius) => {
     return ((celsius * 9/5) + 32).toFixed(1);
   };
-
   return (
     <div className='scroll-container'>
       <div className='scroll-content'>
-        {sevenDaysData.concat(sevenDaysData).map((day, index) => ( // Duplicate data for seamless scroll
+        {fifteenDaysData.concat(fifteenDaysData).map((day, index) => ( // Duplicate data for seamless scroll
           <div key={index} className='scroll-item'>
             <div className='card'>
                {day.datetime} 
@@ -31,4 +31,4 @@ const WeeklyForecast = () => {
   )
 }
 
-export default WeeklyForecast
+export default FifteenDaysWeather
