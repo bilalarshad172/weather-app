@@ -13,6 +13,14 @@ const useWeatherStore = create((set) => ({
   currentConditions: null,
   alerts: [],
   resolvedAddress: '',
+   storedCities: JSON.parse(localStorage.getItem('storedCities')) || [],
+  addCityToLocalStorage: (city) => {
+    set((state) => {
+      const updatedCities = [...state.storedCities, city];
+      localStorage.setItem('storedCities', JSON.stringify(updatedCities));
+      return { storedCities: updatedCities };
+    });
+  },
   fetchWeatherData: async (city) => {
     const apiUrl = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=metric&key=${API_KEY}`;
     

@@ -7,6 +7,7 @@ import useWeatherStore from "./Zustand/useWeatherStore";
 const NavBar = () => {
   const [cityInput, setCityInput] = useState("Sargodha");
   const fetchWeatherData = useWeatherStore((state) => state.fetchWeatherData);
+  const addCityToLocalStorage = useWeatherStore((state) => state.addCityToLocalStorage);
   const resolvedAddress = useWeatherStore((state) => state.resolvedAddress);
   const currentCondition = useWeatherStore((state) => state.currentConditions);
 
@@ -22,6 +23,20 @@ const NavBar = () => {
     if (cityInput) {
       await fetchWeatherData(cityInput);
       const weatherData = useWeatherStore.getState();
+       addCityToLocalStorage({
+        city: weatherData.city,
+        currentConditions: weatherData.currentConditions,
+        oneDayData: weatherData.oneDayData,
+        sevenDaysData: weatherData.sevenDaysData,
+        fifteenDaysData: weatherData.fifteenDaysData,
+        timezone: weatherData.timezone,
+        description: weatherData.description,
+        latitude: weatherData.latitude,
+        longitude: weatherData.longitude,
+        alerts: weatherData.alerts,
+        resolvedAddress: weatherData.resolvedAddress,
+      });
+      setCityInput('');
       console.log(weatherData);
       // Optionally reset input value or handle UI updates here
     }

@@ -4,7 +4,7 @@ import Card from "./Card";
 
 const Sidebar = () => {
   return (
-    <div className="">
+    <div className="z-10">
       <input id="my-drawer" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content items-center">
         {/* Page content here */}
@@ -18,7 +18,7 @@ const Sidebar = () => {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <div className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+        <div className="menu bg-base-200 relative z-20 text-base-content min-h-full w-80 p-4 ">
           <input
             type="text"
             placeholder="Search Added cities"
