@@ -42,7 +42,7 @@ const Hero = () => {
               <img
                 src={getWeatherSVG(currentConditions.conditions)}
                 alt={currentConditions.conditions}
-                 className="z-20"
+                className="z-20"
               />
               <div className="bg-black bg-opacity-60 text-white p-4 rounded">
                 <h1 className="text-2xl">{currentConditions.conditions}</h1>
@@ -72,7 +72,13 @@ const Hero = () => {
                     ></path>
                   </svg>
                   <span>
-                    {alerts.length === 0 ? "Nothing Alarming." : alerts}
+                    {alerts.length === 0
+                      ? "Nothing Alarming."
+                      : alerts.map((alert, index) => (
+                          <div key={index}>
+                            <strong>{alert.event}</strong>: {alert.headline}
+                          </div>
+                        ))}
                   </span>
                 </div>
               </div>
@@ -102,7 +108,7 @@ const Hero = () => {
                 <p>Solar Radiation :</p> {oneDayData.solarradiation}
               </div>
               <div className="flex gap-2 pt-1">
-                <p>Severe Risk :</p> {oneDayData.severerisk} 
+                <p>Severe Risk :</p> {oneDayData.severerisk}
               </div>
             </div>
           </div>
