@@ -19,8 +19,8 @@ const WeatherDetails = () => {
             <p className="font-semibold">{oneDayData.datetime}</p>
             <div className="flex gap-2 items-center">
               <img
-                src={getWeatherSVG(oneDayData.condition)}
-                alt={oneDayData.condition}
+                src={getWeatherSVG(currentConditions.condition)}
+                alt={currentConditions.condition}
                 className="w-16"
               />
               <h2 className="text-2xl font-semibold">{currentConditions.temp}°C</h2>

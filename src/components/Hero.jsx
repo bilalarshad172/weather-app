@@ -6,6 +6,7 @@ import getWeatherBackground from "./utils/getWeatherBackground";
 
 const Hero = () => {
   const currentConditions = useWeatherStore((state) => state.currentConditions);
+  const oneDayData = useWeatherStore((state) => state.oneDayData);
   const resolvedAddress = useWeatherStore((state) => state.resolvedAddress);
   const alerts = useWeatherStore((state) => state.alerts);
   const timezone = useWeatherStore((state) => state.timezone);
@@ -90,6 +91,18 @@ const Hero = () => {
               </div>
               <div className="flex gap-2 pt-1">
                 <p>Sunset :</p> <TimeFormat time24={currentConditions.sunset} />
+              </div>
+              <div className="flex gap-2 pt-1">
+                <p>Max Temp :</p> {oneDayData.tempmax} °C
+              </div>
+              <div className="flex gap-2 pt-1">
+                <p>Min Temp :</p> {oneDayData.tempmin} °C
+              </div>
+              <div className="flex gap-2 pt-1">
+                <p>Solar Radiation :</p> {oneDayData.solarradiation}
+              </div>
+              <div className="flex gap-2 pt-1">
+                <p>Severe Risk :</p> {oneDayData.severerisk} 
               </div>
             </div>
           </div>

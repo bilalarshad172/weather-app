@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import WeatherDetails from "./utils/WeatherDetails";
 import { FiClock, FiCalendar } from "react-icons/fi";
 import { WiDaySunny } from "react-icons/wi";
+import { FaBalanceScale } from 'react-icons/fa';
 import HourlyForecast from "./utils/HourlyForecast";
 import WeeklyForecast from "./utils/WeeklyForecast";
 import FifteenDaysWeather from "./utils/FifteenDaysWeather";
@@ -14,7 +15,7 @@ const WeatherTabs = () => {
     <div className="flex flex-col items-center mb-20">
       <div
         role="tablist"
-        className="tabs tabs-lifted border w-[80%] mx-20 mt-10 rounded-md"
+        className="tabs tabs-lifted  w-[80%] mx-20 mt-10 rounded-md"
       >
         <div className="flex">
           <button
@@ -74,13 +75,13 @@ const WeatherTabs = () => {
             } hover:bg-[#53687E] transition duration-300`}
           >
             <div className="flex gap-2 justify-center items-center">
-              <FiCalendar className="w-10 h-10" /> <p>Comparison</p>
+              <FaBalanceScale className="w-10 h-10" /> <p>Comparison</p>
             </div>
           </button>
         </div>
       </div>
 
-      <div className="tab-content-container border p-6 w-[80%] mx-20">
+      <div className="tab-content-container mt-4 border rounded p-6 w-[80%] mx-20">
         {activeTab === "tab1" && (
           <div role="tabpanel">
             <WeatherDetails />

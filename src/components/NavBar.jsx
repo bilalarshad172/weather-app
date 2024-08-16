@@ -5,7 +5,7 @@ import { FaSearch } from "react-icons/fa";
 import useWeatherStore from "./Zustand/useWeatherStore";
 
 const NavBar = () => {
-  const [cityInput, setCityInput] = useState("Sargodha");
+  const [cityInput, setCityInput] = useState("Islamabad");
   const fetchWeatherData = useWeatherStore((state) => state.fetchWeatherData);
   const addCityToLocalStorage = useWeatherStore((state) => state.addCityToLocalStorage);
   const resolvedAddress = useWeatherStore((state) => state.resolvedAddress);
@@ -19,11 +19,23 @@ const NavBar = () => {
   
 
   const handleSearch = async (e) => {
-    e.preventDefault();
-    if (cityInput) {
-      await fetchWeatherData(cityInput);
-      const weatherData = useWeatherStore.getState();
-       addCityToLocalStorage({
+  e.preventDefault();
+  if (cityInput) {
+    // Fetch weather data for the city
+    await fetchWeatherData(cityInput);
+
+    // Get the current state of stored cities
+    const weatherData = useWeatherStore.getState();
+    const existingCities = useWeatherStore.getState().storedCities;
+
+    // Check if the city already exists in local storage
+    const cityExists = existingCities.some(
+      (storedCity) => storedCity.city.toLowerCase() === cityInput.toLowerCase()
+    );
+
+    if (!cityExists) {
+      // Add the city to local storage if it doesn't already exist
+      addCityToLocalStorage({
         city: weatherData.city,
         currentConditions: weatherData.currentConditions,
         oneDayData: weatherData.oneDayData,
@@ -36,14 +48,17 @@ const NavBar = () => {
         alerts: weatherData.alerts,
         resolvedAddress: weatherData.resolvedAddress,
       });
-      setCityInput('');
-      console.log(weatherData);
-      // Optionally reset input value or handle UI updates here
     }
-  };
+
+    setCityInput('');
+    console.log(weatherData);
+    // Optionally reset input value or handle UI updates here
+  }
+};
+
 
   return (
-    <div className="h-32  flex justify-between items-center">
+    <div className="h-32 bg-gray-800 flex justify-between items-center">
       <div className="flex gap-4 w-1/3 items-center">
         <Sidebar />
         <div className="flex gap-3 items-center">
