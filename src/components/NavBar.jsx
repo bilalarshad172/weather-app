@@ -5,7 +5,7 @@ import { FaSearch } from "react-icons/fa";
 import useWeatherStore from "./Zustand/useWeatherStore";
 
 const NavBar = () => {
-  const [cityInput, setCityInput] = useState("Islamabad");
+  const [cityInput, setCityInput] = useState("Sargodha");
   const fetchWeatherData = useWeatherStore((state) => state.fetchWeatherData);
   const resolvedAddress = useWeatherStore((state) => state.resolvedAddress);
   const currentCondition = useWeatherStore((state) => state.currentConditions);
@@ -13,7 +13,9 @@ const NavBar = () => {
   useEffect(() => {
     // Fetch weather data for default city on page load
     fetchWeatherData(cityInput);
-  }, [fetchWeatherData, cityInput]);
+  }, [fetchWeatherData]);
+
+  
 
   const handleSearch = async (e) => {
     e.preventDefault();
