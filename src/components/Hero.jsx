@@ -21,7 +21,7 @@ const Hero = () => {
   const isWeatherDataAvailable = currentConditions && resolvedAddress;
 
   return (
-    <div className="relative border mx-20 mt-10 rounded-md overflow-hidden z-0">
+    <div className="relative  mx-20 mt-10 rounded-md overflow-hidden z-0">
       {backgroundVideo && (
         <video
           key={backgroundVideo} // This forces React to treat the video element as new when the backgroundVideo changes

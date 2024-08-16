@@ -17,7 +17,7 @@ const Card = () => {
         return (
           <div
             key={index}
-            className="relative border mt-10 rounded overflow-hidden"
+            className="relative  mt-10 rounded overflow-hidden"
           >
             {backgroundVideo && (
               <video
