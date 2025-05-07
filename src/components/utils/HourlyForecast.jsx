@@ -16,15 +16,33 @@ const HourlyForecast = () => {
         {hourlyData.concat(hourlyData).map((hour, index) => ( // Duplicate data for seamless scroll
           <div key={index} className='scroll-item'>
             <div className='card'>
-              <TimeFormat time24={hour.datetime} /> 
-              <img 
-                src={getWeatherSVG(hour.conditions)} 
-                alt={hour.conditions} 
-                className='w-12 h-12 object-cover'
+              <div className="text-lg font-semibold text-primary mb-2">
+                <TimeFormat time24={hour.datetime} />
+              </div>
+              <img
+                src={getWeatherSVG(hour.conditions)}
+                alt={hour.conditions}
+                className='w-16 h-16 object-cover'
               />
-              <p>🌡️{hour.temp}°C | {celsiusToFahrenheit(hour.temp)}°F</p>
-              <p>Feels like: {hour.feelslike}°C</p>
-              <p>{hour.conditions}</p>
+              <div className="mt-3 mb-1">
+                <span className="text-xl font-bold text-primary">{hour.temp}°C</span>
+                <span className="text-sm text-gray-500 ml-1">({celsiusToFahrenheit(hour.temp)}°F)</span>
+              </div>
+              <div className="bg-secondary/10 px-3 py-1 rounded-full text-secondary text-sm mb-2">
+                Feels like: {hour.feelslike}°C
+              </div>
+              <p className="text-dark font-medium">{hour.conditions}</p>
+
+              <div className="grid grid-cols-2 gap-2 mt-3 w-full text-xs">
+                <div className="bg-light-dark/20 p-1 rounded">
+                  <span className="block text-gray-500">Humidity</span>
+                  <span>{hour.humidity}%</span>
+                </div>
+                <div className="bg-light-dark/20 p-1 rounded">
+                  <span className="block text-gray-500">Wind</span>
+                  <span>{hour.windspeed} km/h</span>
+                </div>
+              </div>
             </div>
           </div>
         ))}

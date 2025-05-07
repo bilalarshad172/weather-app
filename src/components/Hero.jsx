@@ -22,99 +22,133 @@ const Hero = () => {
   const isWeatherDataAvailable = currentConditions && resolvedAddress;
 
   return (
-    <div className="relative  mx-20 mt-10 rounded-md overflow-hidden z-0">
+    <div className="relative mx-4 md:mx-10 lg:mx-20 mt-6 md:mt-10 rounded-xl overflow-hidden z-0 shadow-elevated">
       {backgroundVideo && (
-        <video
-          key={backgroundVideo} // This forces React to treat the video element as new when the backgroundVideo changes
-          autoPlay
-          loop
-          muted
-          className="absolute top-0 left-0 w-full h-full object-cover z-0"
-        >
-          <source src={backgroundVideo} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        <>
+          <video
+            key={backgroundVideo}
+            autoPlay
+            loop
+            muted
+            className="absolute top-0 left-0 w-full h-full object-cover z-0"
+          >
+            <source src={backgroundVideo} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          {/* Gradient overlay for better text contrast */}
+          <div className="absolute inset-0 bg-gradient-to-r from-dark-dark/50 to-transparent z-0"></div>
+        </>
       )}
-      <div className="relative z-10 p-4">
+      <div className="relative z-10 p-3 md:p-6">
         {isWeatherDataAvailable ? (
-          <div className="flex justify-between">
-            <div className="p-10">
-              <img
-                src={getWeatherSVG(currentConditions.conditions)}
-                alt={currentConditions.conditions}
-                className="z-20"
-              />
-              <div className="bg-black bg-opacity-60 text-white p-4 rounded">
-                <h1 className="text-2xl">{currentConditions.conditions}</h1>
-                <h2 className="text-3xl">{currentConditions.temp}°C</h2>
-                <div className="flex gap-2">
-                  <p>Sunrise :</p>
-                  <TimeFormat time24={currentConditions.sunrise} />
+          <div className="flex justify-between flex-wrap md:flex-nowrap gap-6">
+            <div className="p-6 w-full md:w-auto">
+              <div className="flex items-center mb-4">
+                <img
+                  src={getWeatherSVG(currentConditions.conditions)}
+                  alt={currentConditions.conditions}
+                  className="w-24 h-24 mr-4 drop-shadow-lg transform transition-transform hover:scale-110 duration-300"
+                />
+                <div>
+                  <h1 className="text-3xl font-bold text-white drop-shadow-md">{currentConditions.conditions}</h1>
+                  <h2 className="text-4xl font-bold text-accent-light drop-shadow-md">{currentConditions.temp}°C</h2>
                 </div>
-                <div className="flex gap-2">
-                  <p>Time Zone :</p>
-                  {timezone}
+              </div>
+              <div className="bg-dark-dark/80 backdrop-blur-sm text-white p-6 rounded-xl shadow-card">
+                <div className="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center mb-4 border-b border-white/20 pb-2">
+                  <div className="flex gap-2 items-center mb-2 sm:mb-0">
+                    <p className="font-semibold">Sunrise:</p>
+                    <TimeFormat time24={currentConditions.sunrise} />
+                  </div>
+                  <div className="flex gap-2 items-center">
+                    <p className="font-semibold">Time Zone:</p>
+                    <span className="text-secondary-light">{timezone}</span>
+                  </div>
                 </div>
-                <div role="alert" className="alert mt-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    className={`h-6 w-6 shrink-0 ${
-                      alerts.length === 0 ? "stroke-info" : "stroke-warning"
-                    }`}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    ></path>
-                  </svg>
-                  <span>
-                    {alerts.length === 0
-                      ? "Nothing Alarming."
-                      : alerts.map((alert, index) => (
-                          <div key={index}>
-                            <strong>{alert.event}</strong>: {alert.headline}
-                          </div>
-                        ))}
-                  </span>
+                <div role="alert" className={`mt-4 p-4 rounded-lg ${alerts.length === 0 ? "bg-secondary/20" : "bg-accent/20"}`}>
+                  <div className="flex items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      className={`h-6 w-6 mr-3 ${
+                        alerts.length === 0 ? "text-secondary-light" : "text-accent"
+                      }`}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      ></path>
+                    </svg>
+                    <span className="font-medium">
+                      {alerts.length === 0
+                        ? "No weather alerts at this time."
+                        : alerts.map((alert, index) => (
+                            <div key={index} className="mb-1">
+                              <strong className="text-accent">{alert.event}:</strong> {alert.headline}
+                            </div>
+                          ))}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="p-4 flex flex-col justify-center bg-black bg-opacity-60 text-white rounded">
-              <h1 className="text-3xl">{resolvedAddress}.</h1>
-              <div className="flex gap-2 pt-1">
-                <p>Humidity :</p> {currentConditions.humidity}
-              </div>
-              <div className="flex gap-2 pt-1">
-                <p>Feelslike :</p> {currentConditions.feelslike}
-              </div>
-              <div className="flex gap-2 pt-1">
-                <p>Dew :</p> {currentConditions.dew}
-              </div>
-              <div className="flex gap-2 pt-1">
-                <p>Sunset :</p> <TimeFormat time24={currentConditions.sunset} />
-              </div>
-              <div className="flex gap-2 pt-1">
-                <p>Max Temp :</p> {oneDayData.tempmax} °C
-              </div>
-              <div className="flex gap-2 pt-1">
-                <p>Min Temp :</p> {oneDayData.tempmin} °C
-              </div>
-              <div className="flex gap-2 pt-1">
-                <p>Solar Radiation :</p> {oneDayData.solarradiation}
-              </div>
-              <div className="flex gap-2 pt-1">
-                <p>Severe Risk :</p> {oneDayData.severerisk}
+            <div className="p-6 flex flex-col justify-center bg-dark-dark/80 backdrop-blur-sm text-white rounded-xl shadow-card w-full md:w-auto">
+              <h1 className="text-3xl font-bold mb-4 text-secondary-light drop-shadow-md">{resolvedAddress}</h1>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="bg-dark/40 p-3 rounded-lg">
+                  <p className="text-sm text-light-dark">Humidity</p>
+                  <p className="text-xl font-semibold">{currentConditions.humidity}%</p>
+                </div>
+
+                <div className="bg-dark/40 p-3 rounded-lg">
+                  <p className="text-sm text-light-dark">Feels Like</p>
+                  <p className="text-xl font-semibold">{currentConditions.feelslike}°C</p>
+                </div>
+
+                <div className="bg-dark/40 p-3 rounded-lg">
+                  <p className="text-sm text-light-dark">Dew Point</p>
+                  <p className="text-xl font-semibold">{currentConditions.dew}°</p>
+                </div>
+
+                <div className="bg-dark/40 p-3 rounded-lg">
+                  <p className="text-sm text-light-dark">Sunset</p>
+                  <p className="text-xl font-semibold"><TimeFormat time24={currentConditions.sunset} /></p>
+                </div>
+
+                <div className="bg-dark/40 p-3 rounded-lg">
+                  <p className="text-sm text-light-dark">Max Temp</p>
+                  <p className="text-xl font-semibold">{oneDayData.tempmax}°C</p>
+                </div>
+
+                <div className="bg-dark/40 p-3 rounded-lg">
+                  <p className="text-sm text-light-dark">Min Temp</p>
+                  <p className="text-xl font-semibold">{oneDayData.tempmin}°C</p>
+                </div>
+
+                <div className="bg-dark/40 p-3 rounded-lg">
+                  <p className="text-sm text-light-dark">Solar Radiation</p>
+                  <p className="text-xl font-semibold">{oneDayData.solarradiation}</p>
+                </div>
+
+                <div className="bg-dark/40 p-3 rounded-lg">
+                  <p className="text-sm text-light-dark">Severe Risk</p>
+                  <p className="text-xl font-semibold">{oneDayData.severerisk}</p>
+                </div>
               </div>
             </div>
           </div>
         ) : (
-          <div className="p-10 text-center">
-            <p>Loading weather data...</p>
+          <div className="p-10 text-center h-80 flex items-center justify-center">
+            <div className="animate-pulse">
+              <div className="h-12 w-48 bg-dark-light/30 rounded-md mb-4 mx-auto"></div>
+              <div className="h-8 w-64 bg-dark-light/20 rounded-md mx-auto"></div>
+              <p className="mt-6 text-white text-xl">Loading weather data...</p>
+            </div>
           </div>
         )}
       </div>
